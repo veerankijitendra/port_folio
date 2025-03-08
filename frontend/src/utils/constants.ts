@@ -1,6 +1,14 @@
-export const url = "http://192.168.29.159:5000";
+// export const url = "http://192.168.29.159:5000";
 
-export interface ISections {
-  title: string;
-  href: string;
-}
+export const endpoints = {
+  navbar: "profile/navbar.json",
+  routes: "profile/routes.json",
+  home: "profile/home.json",
+  social: "profile/social.json",
+  about: "profile/about.json",
+  skills: "profile/skills.json",
+  education: "profile/education.json",
+  experiences: "profile/experiences.json",
+  projects: "profile/projects.json",
+  fotter: "profile/fotter.json",
+};

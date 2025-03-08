@@ -17,6 +17,6 @@ router.route("/about").get(getAboutPageData);
 router.route("/skills").get(getSkillsPageData);
 router.route("/education").get(getEducationPageData);
 router.route("/social").get(getSocialPageData);
-router.route("/fotter").get(getFooterPageData);
+router.route("/footer").get(getFooterPageData);
 
 export default router;
