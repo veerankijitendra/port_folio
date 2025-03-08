@@ -8,11 +8,13 @@ const Header = () => {
     updateTheme(theme === "light" ? "dark" : "light");
   };
 
+  console.log(headersData.sections);
+
   return (
     <div className="w-full flex gap-4 justify-between bg-neutral-600 p-4 h-16">
       <div className="aspect-square shrink-0 w-16 rounded-4xl bg-amber-300" />
       <div className="flex items-center gap-4 ">
-        {headersData?.map((each) => {
+        {headersData.sections?.map((each) => {
           return (
             <div key={each.title} className="cursor-pointer  main-con">
               <p>{each.title}</p>

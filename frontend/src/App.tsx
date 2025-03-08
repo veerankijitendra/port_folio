@@ -6,23 +6,22 @@ import { MainContext } from "./contexts/Contexts";
 function App() {
   const { updateHeadersData } = useContext(MainContext);
   const getRequest = (endPoint: string) => `${url}/${endPoint}`;
+
   const getUserData = async () => {
     try {
-      // const urls = [getRequest("navbar"), getRequest("home")];
-      // const responses = (await Promise.allSettled(urls)).map(async(each) => await each.json() );
-      // const fetchPromises = urls.map(url => fetch(url,{
-      //   method: "GET",
-      //   headers: { Accept: "application/json" },
-      // }).then)
-      // console.log(responses);
-      // const response = await fetch(`${url}/navbar`, {
-      //   method: "GET",
-      //   headers: { Accept: "application/json" },
-      // });
-      // const data = await response.json();
-      // if (data.status === "success" && Array.isArray(data.data.sections)) {
-      //   updateHeadersData(data.data.sections);
-      // }
+      const urls = [getRequest("navbar"), getRequest("home")];
+      const [resNavbar, resHome]: Response[] = await Promise.all(
+        urls.map((newUrl) =>
+          fetch(newUrl, {
+            method: "GET",
+            headers: { Accept: "application/json" },
+          })
+        )
+      );
+      const navbarData = await resNavbar.json();
+      const homeData = await resHome.json();
+      console.log(navbarData);
+      updateHeadersData(navbarData.data);
     } catch (error) {
       console.error(error);
     }

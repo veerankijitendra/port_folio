@@ -6,13 +6,13 @@ export type TTheme = "light" | "dark";
 interface IContextState {
   theme: TTheme;
   updateTheme: (theme: TTheme) => void;
-  headersData: ISections[];
+  headersData: { sections: ISections[] };
   updateHeadersData: (data: ISections[]) => void;
 }
 
 const initailsState: IContextState = {
   theme: "light",
-  headersData: [],
+  headersData: { sections: [] },
   updateTheme: () => {},
   updateHeadersData: () => {},
 };
