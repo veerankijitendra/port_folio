@@ -1,11 +1,22 @@
-import React, { useContext } from "react";
-import { MainContext } from "../contexts/Contexts";
+import { useMemo } from "react";
+import { useMainContext } from "../hooks/useMainContext";
+import useScrollAnimation from "../hooks/useScollAnimation";
 
 const Skills = () => {
-  const { skillsData } = useContext(MainContext);
+  const { skillsData } = useMainContext();
+  const { ref, isVisible } = useScrollAnimation(0.6);
+
+  const className = useMemo(
+    () =>
+      `transition-all duration-700 transform scale-75 opacity-0 ${
+        isVisible ? "scale-100 opacity-100" : ""
+      }`,
+    [isVisible]
+  );
+
   if (!skillsData) return <></>;
   return (
-    <div className="overflow-clip w-ful">
+    <section ref={ref} className={`${className} overflow-clip w-ful`}>
       <h2 className="text-4xl font-bold pb-6 text-center">Skills</h2>
       <p className="pb-6">{skillsData.intro}</p>
       <div className="grid grid-cols-12 grid-rows-2 gap-y-6 sm:gap-y-16">
@@ -38,7 +49,7 @@ const Skills = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

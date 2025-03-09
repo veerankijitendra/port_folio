@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MainContext, TTheme } from "./Contexts";
 import {
   TAboutResponse,
@@ -13,7 +13,9 @@ import {
 const MainContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<TTheme>("light");
+  const [theme, setTheme] = useState<TTheme>(
+    (sessionStorage.getItem("theme") ?? "dark") as TTheme
+  );
   const [headers, setHeaders] = useState<TNavBarRespone | null>(null);
   const [homePageData, setHomePageData] = useState<THomePageResponse | null>(
     null
@@ -46,6 +48,16 @@ const MainContextProvider: React.FC<React.PropsWithChildren> = ({
   const updateSocialData = (data: TSocialResponse) => setSocialData(data);
 
   const updateFooterData = (data: TFooterResponse) => setFooterData(data);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add(theme);
+      sessionStorage.setItem("theme", theme);
+    } else {
+      document.documentElement.classList.remove("dark");
+      sessionStorage.setItem("theme", theme);
+    }
+  }, [theme]);
 
   return (
     <MainContext.Provider

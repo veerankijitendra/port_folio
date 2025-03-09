@@ -1,8 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import { endpoints } from "./utils/constants";
-import { MainContext } from "./contexts/Contexts";
 import {
   TAboutResponse,
   TEducationResponse,
@@ -17,6 +16,7 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Education from "./components/Education";
 import Footer from "./components/Footer";
+import { useMainContext } from "./hooks/useMainContext";
 
 function App() {
   const {
@@ -27,7 +27,7 @@ function App() {
     updateEducationData,
     updateSocialData,
     updateFooterData,
-  } = useContext(MainContext);
+  } = useMainContext();
   const getRequest = (endPoint: string) => `${endPoint}`;
 
   const getUserData = async () => {
@@ -65,7 +65,6 @@ function App() {
       const educationData: TEducationResponse = await resEducation.json();
       const socialData: TSocialResponse = await resSocial.json();
       const footerData: TFooterResponse = await resFooter.json();
-      console.log(navbarData);
 
       updateHeadersData(navbarData);
       updateHomeData(homeData);
@@ -83,14 +82,16 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
-      <div className="text-xl  ">
-        <Header />
-        <Home />
-        <About />
-        <Skills />
-        <Education />
-        <Footer />
+      <Header />
+      <div className="bg-theme px-4">
+        <div className="responsive-container">
+          <Home />
+          <About />
+          <Skills />
+          <Education />
+        </div>
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }
